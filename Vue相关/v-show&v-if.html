@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box-wrapper{
+            width: 800px;
+            height: 200px;
+    }
+    .box{
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        font-size: 30px;
+        float: left;
+        text-align: center;
+    }
+    .box1{
+        background-color: brown;
+    }
+    .box2{
+        background-color: yellowgreen;
+    }
+    .box3{
+        background-color: orange;
+    }
+    .box4{
+        background-color: orchid;
+    }
+
+</style>
+
+<body>
+    <div id="app">
+        <div class="box-wrapper">
+            <div class="box box1" v-if='showBox1'>box1</div>
+            <div class="box box2" v-if='showBox2'>box2</div>
+            <div class="box box3" v-show='showBox3'>box3</div>
+            <div class="box box4" v-show='showBox4'>box4</div>
+        </div>
+        <br>
+
+        <button @click='showBox1'>box1</button>
+        <button @click='showBox2'>box2</button>
+        <button @click='showBox3'>box3</button>
+        <button @click='showBox4'>box4</button>
+    </div>
+    
+</body>
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            boxShow1:false,
+            boxShow2:false,
+            boxShow3:false,
+            boxShow4:false,
+        },
+        methods:{
+            showBox1(){
+                this.boxShow1 = !this.boxShow1
+            },
+            showBox2(){
+                this.boxShow2 = !this.boxShow2
+            },
+            showBox3(){
+                this.boxShow3 = !this.boxShow3
+            },
+            showBox4(){
+                this.boxShow4 = !this.boxShow4
+            },
+
+        }
+
+    })
+</script>
+</html>
