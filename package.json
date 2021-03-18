@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "asyncpool": "^0.1.1",
+    "axios": "^0.21.1",
+    "jquery": "^3.6.0",
+    "qs": "^6.9.6"
+  }
+}

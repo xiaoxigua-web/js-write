@@ -6,6 +6,7 @@ class Vue{
         this.methods = methods
         this.init()
         this.showMap = new Map()
+        this.domMap = new Map()
     }
     init(){
         this.initData(this.data)
@@ -31,7 +32,19 @@ class Vue{
 
     }
     initDom(){
-        let c = this.el.childNodes
+        let _childNodes = this.el.childNodes
+        if(!_childNodes.length){
+            return
+        }
+        _childNodes.forEach((dom)=>{
+            if(dom.nodeType === 1){
+                let domIf = dom.getAttribute('v-if')
+                this.showMap.set(dom,{
+
+                })
+
+            }
+        })
         console.log(c)
 
     }
