@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        let data = {
+            state:1
+        }
+        let active;
+        function defineReactive(obj){
+            // Object.keys(obj).forEach((key,index)=>{
+            //     console.log(key,index)
+
+            // })
+            for(let key in obj){
+                let value = obj[key]
+                let deps = []
+                Object.defineProperty(obj,key,{
+                    get(){
+                        if(active){
+                            deps.push(active)
+                        }
+                        return value
+
+                    },
+                    set(newValue){
+                        deps.forEach(watcher => watcher())
+                        return newValue
+                    }
+                })
+            }
+        }
+        defineReactive(data)
+
+        function Watcher(fn){
+            active = fn
+            fn()
+            active = null
+        }
+        new Watcher(()=>{
+            console.log('update',data.state)
+        })
+
+
+
+
+    </script>
+</body>
+</html>
