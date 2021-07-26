@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>EventEmit</h1>
+    <script>
+
+        class Event{
+            constructor(){
+                this.event = {}
+            }
+            on(eventName,cb){
+                this.event[eventName] = this.event[eventName] || []
+                this.event[eventName].push(cb)
+            }
+            emit(eventName,...args){
+                if( this.event[eventName]){
+                    this.event[eventName].forEach(event => {
+                    event.apply(this,args)
+                });
+                }
+            }
+            off(eventName,cb){
+                if(!cb){
+                    this.event[eventName] = []
+                }else{
+                    this.event[eventName] = this.event[eventName].filter( item =>{
+                        return item !== cb
+                    })
+                }
+            }
+            once(eventName,cb){
+                if(this.event[eventName] && this.event[eventName].length){
+                    this.event[eventName] = []
+                }
+                this.event[eventName].push(cb)
+            }
+        }
+
+        let e = new Event()
+
+        e.on('aaa',function c(params) {
+            console.log('11')
+        })
+        e.emit('aaa')
+
+
+    </script>
+</body>
+</html>
