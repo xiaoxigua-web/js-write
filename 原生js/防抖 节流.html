@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>防抖节流</h1>
+    <script>
+        //防抖 
+        function debounce(fn, delay, isDofirst) {
+            let timer;
+            return function () {
+                console.log('move')
+                let that = this
+                let args = arguments
+                if (timer) {
+                    clearTimeout(timer)
+                }
+                if (isDofirst) {
+
+                    if (!timer) {
+                        fn.apply(this, args)
+                    }
+                    timer = setTimeout(function () {
+                        fn.apply(this, args)
+                        timer = null
+                    }, delay)
+                } else {
+                    timer = setTimeout(function () {
+                        fn.apply(that, args)
+                    }, delay)
+
+                }
+            }
+
+        }
+        let wocao = debounce(() => {
+            console.log(1)
+        }, 1000, true)
+
+        window.addEventListener('mousemove', wocao)
+
+
+
+
+
+
+
+
+
+
+        let throttle1 = function (fn, delay) {
+            let last = 0
+            return function () {
+                let now = Date.now()
+                if (now - last >= delay) {
+                    last = now
+                    fn.apply(this, arguments)
+                }
+            }
+        }
+        //第一次出发立即执行
+
+
+
+
+
+
+
+        let throttle = function (fn, delay) {
+            let timer
+            return function () {
+                let that = this
+                let args = arguments
+                if (timer) return
+                timer = setTimeout(function () {
+                    fn.apply(that, args);
+                    timer = null
+                }, delay)
+
+            }
+        }
+        let test = function () {
+            console.log(112233)
+        }
+        let xxx = throttle(test, 1000)
+        xxx()
+        xxx()
+        xxx()
+        setTimeout(xxx, 2000)
+        xxx()
+
+
+
+    </script>
+</body>
+
+</html>
