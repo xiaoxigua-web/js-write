@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <div id="app"></div>
     <script>
 
         /*
@@ -15,6 +16,51 @@
                 arr[6] = 1
                 console.log(arr.length) =>7
      */
+
+        function loadImage(url) {
+            return new Promise((resolve, reject) => {
+                let img = document.createElement('img')
+                img.onload = function name(params) {
+                    app.appendChild(img)
+                    resolve()
+                }
+                img.onerror = function name(params) {
+                    reject()
+                }
+                img.src = url
+            })
+
+        }
+        console.log('2')
+        loadImage('https://himg.bdimg.com/sys/portraitn/item/89a1d2bbc2b7b2cabae7c2faccecd0c7a85c')
+
+
+
+
+        let deepClone = function (orgin, target = {}) {
+            if (typeof orgin === 'function') {
+                return
+            }
+            if (typeof orgin !== 'object' || typeof orgin === 'null') {
+                return orgin
+            }
+            for (let key in orgin) {
+                if (orgin.hasOwnProperty(key)) {
+                    target[key] = orgin[key]
+                    deepClone(orgin[key])
+                }
+            }
+            return target
+
+        }
+        let orgin = {
+            a:1,
+            b:{
+                name:1
+            }
+        }
+    let copyobj = deepClone(orgin)
+    console.log('copy',copyobj)
     </script>
 
 
