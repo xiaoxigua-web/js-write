@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        并发请求控制
+    </h1>
+    <script>
+        function get(time, sort) {
+            return new Promise((resolve) => {
+                console.log(`第${sort}个请求--开始`)
+                setTimeout(() => {
+                    console.log(`第${sort}个请求----------结束`)
+                    resolve(sort)
+                }, time)
+            })
+        }
+        let getArr = [() => get(1000, 1),() => get(2000, 2), () => get(3000, 3),() => get(1500, 4), () => get(1800, 5),]
+        function limitGet(fnArr, max = 3) {
+            let results = [],
+                workArr = new Array(max).fill(null),
+                index = 0;
+                workArr =  workArr.map(() => {
+                return new Promise((resolve, reject) => {
+                    function run() {
+                        if (index >= fnArr.length){
+                            resolve()
+                            return
+                        } 
+                        let oldindex = index
+                        index++
+                        fnArr[oldindex]().then((val) => {
+                            results[oldindex] = val
+                            run()
+                        })
+                    }
+                run()
+                })
+            })
+            return Promise.all(workArr).then(()=>{
+                return results
+            } )
+        }
+        limitGet(getArr, 2).then((val)=>{
+            console.log('???',val)
+        })
+
+
+    </script>
+</body>
+
+</html>
