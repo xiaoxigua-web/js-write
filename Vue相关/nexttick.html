@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function render(){
+            console.log('渲染了')
+        }
+        let subs = [],pending = false
+
+        function nextTick(fn){
+            subs.push(fn)
+            if(!pending){
+                pending = true 
+                Promise.resolve().then(fushCallbacks)
+            }
+        }
+
+        function fushCallbacks(){
+            pending = false 
+            subs.forEach(fn=>fn())
+        }
+
+
+        nextTick(render)
+        nextTick(render)
+        nextTick(render)
+
+
+        console.log('更新数据')
+        console.log('更新数据')
+        console.log('更新数据')
+
+    </script>
+</body>
+</html>

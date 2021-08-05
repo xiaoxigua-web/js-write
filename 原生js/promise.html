@@ -9,6 +9,7 @@
 
 <body>
     <div id="app"></div>
+    <script src="./ajax.js"></script>
     <script>
 
         /*
@@ -37,30 +38,37 @@
 
 
 
-        let deepClone = function (orgin, target = {}) {
+        let deepClone = function (orgin, target) {
             if (typeof orgin === 'function') {
                 return
             }
             if (typeof orgin !== 'object' || typeof orgin === 'null') {
                 return orgin
             }
+            console.log(orgin)
             for (let key in orgin) {
                 if (orgin.hasOwnProperty(key)) {
-                    target[key] = orgin[key]
-                    deepClone(orgin[key])
+                    if (typeof orgin[key] === 'object' && typeof orgin[key] !== 'null') {
+                        target[key] = Array.isArray(orgin[key]) ? [] : {}
+                        deepClone(orgin[key], target[key])
+                    } else {
+                        console.log(99, target, key, orgin[key])
+                        target[key] = orgin[key]
+
+                    }
                 }
             }
             return target
 
         }
         let orgin = {
-            a:1,
-            b:{
-                name:1
+            a: 1,
+            b: {
+                name: 1
             }
         }
-    let copyobj = deepClone(orgin)
-    console.log('copy',copyobj)
+        let copyobj = deepClone(orgin, {})
+        console.log('copy', copyobj)
     </script>
 
 
