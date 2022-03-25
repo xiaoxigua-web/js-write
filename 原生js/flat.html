@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+//手写一个拍平去重升序的函数
+
+let arr = [[1,2,2,3],11,12,[4,5,5]]
+
+function flatten(arr) {
+   let _arr = arr || [],
+       newArr=[],
+       len = _arr.length,
+       item;
+
+    for(let i=0; i<len; i++) {
+      item = _arr[i];
+      if(Array.isArray(item)) {
+        newArr = newArr.concat(flatten(item))
+      }else{
+        newArr.push(item);
+      }
+    }
+    return newArr;
+
+
+}
+console.log(flatten(arr))
+
+</script>
+</html>
